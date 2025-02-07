@@ -36,11 +36,14 @@ public class FirebaseJNI {
     }
 
     public void initialize() {
+        if (FirebaseApp.getApps(activity.getApplicationContext()).size() > 0) {
+            FirebaseApp.getInstance().delete();  // 既存のFirebaseインスタンスを削除
+        }
+
         if (optionsBuilder != null) {
             FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
             optionsBuilder = null;
-        }
-        else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
+        } else {
             FirebaseApp.initializeApp(activity.getApplicationContext());
         }
         sendSimpleMessage(MSG_INITIALIZED);
