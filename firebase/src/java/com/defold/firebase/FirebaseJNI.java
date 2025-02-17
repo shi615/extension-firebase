@@ -77,46 +77,43 @@ public class FirebaseJNI {
                 Log.d(TAG, "DefaultOption is null.");
             }
 
-            if (defaultOption != null) {
-                Log.d(TAG, "BuilderをOption付きで初期化");
-                optionsBuilder = new FirebaseOptions.Builder(defaultOption);
-            } else {
-                Log.d(TAG, "BuilderをOptionなしで初期化");
-                optionsBuilder = new FirebaseOptions.Builder();
-            }
+            // if (defaultOption != null) {
+            // Log.d(TAG, "BuilderをOption付きで初期化");
+            // optionsBuilder = new FirebaseOptions.Builder(defaultOption);
+            // } else {
+            // Log.d(TAG, "BuilderをOptionなしで初期化");
+            // optionsBuilder = new FirebaseOptions.Builder();
+            // }
+
+            Log.d(TAG, "BuilderをDefaultOptionの有無に関係なしで初期化");
+            optionsBuilder = new FirebaseOptions.Builder();
         } else {
             Log.d(TAG, "optionsBuilder is not nill");
         }
         switch (key) {
             case "api_key":
-                Log.d(TAG, "set api_key前のBuilder.apiKey:" + optionsBuilder.getApiKey());
+                Log.d(TAG, "api_keyをセットした");
                 optionsBuilder.setApiKey(value);
-                Log.d(TAG, "set api_key後のBuilder.apiKey:" + optionsBuilder.getApiKey());
                 break;
             case "app_id":
-                Log.d(TAG, "set app_id前のBuilder.app_id:" + optionsBuilder.getApplicationId());
+                Log.d(TAG, "app_idをセットした");
                 optionsBuilder.setApplicationId(value);
-                Log.d(TAG, "set app_id後のBuilder.app_id:" + optionsBuilder.getApplicationId());
                 break;
             case "database_url":
-                Log.d(Tag, "set database_url前のBuilder.database_url:" + optionsBuilder.getDatabaseUrl());
+                Log.d(TAG, "database_urlをセットした");
                 optionsBuilder.setDatabaseUrl(value);
-                Log.d(Tag, "set database_url後のBuilder.database_url:" + optionsBuilder.getDatabaseUrl());
                 break;
             case "messaging_sender_id":
-                Log.d(TAG, "set messaging_sender_id前のBuilder.messaging_sender_id:" + optionsBuilder.getGcmSenderId());
+                Log.d(TAG, "messaging_sender_idをセットした");
                 optionsBuilder.setGcmSenderId(value);
-                Log.d(TAG, "set messaging_sender_id後のBuilder.messaging_sender_id:" + optionsBuilder.getGcmSenderId());
                 break;
             case "project_id":
-                Log.d(TAG, "set project_id前のBuilder.project_id:" + optionsBuilder.getProjectId());
+                Log.d(TAG, "project_idをセットした");
                 optionsBuilder.setProjectId(value);
-                Log.d(TAG, "set project_id後のBuilder.project_id:" + optionsBuilder.getProjectId());
                 break;
             case "storage_bucket":
-                Log.d(TAG, "set storage_bucket前のBuilder.storage_bucket:" + optionsBuilder.getStorageBucket());
+                Log.d(TAG, "storage_bucketをセットした");
                 optionsBuilder.setStorageBucket(value);
-                Log.d(TAG, "set storage_bucket後のBuilder.storage_bucket:" + optionsBuilder.getStorageBucket());
                 break;
             default:
                 return false;
