@@ -36,25 +36,31 @@ public class FirebaseJNI {
     }
 
     public void initialize() {
+        FirebaseApp firebaseApp;
         if (optionsBuilder != null) {
-            FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
+            Log.d(TAG, "Optionsで初期化");
+            firebaseApp = FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
             optionsBuilder = null;
         }
         else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
-            FirebaseApp.initializeApp(activity.getApplicationContext());
+            Log.d(TAG, "DefaultOptionsで初期化");
+            firebaseApp = FirebaseApp.initializeApp(activity.getApplicationContext());
         }
+        Log.d(TAG, "project id is " + firebaseApp.getOptions().getProjectId());
         sendSimpleMessage(MSG_INITIALIZED);
     }
 
     public boolean setOption(String key, String value) {
         if (optionsBuilder == null) {
-            FirebaseOptions defaultOption = FirebaseOptions.fromResource(activity.getApplicationContext());
-            if (defaultOption != null) {
-                optionsBuilder = new FirebaseOptions.Builder(defaultOption);
-            }
-            else {
-                optionsBuilder = new FirebaseOptions.Builder();
-            }
+            // FirebaseOptions defaultOption = FirebaseOptions.fromResource(activity.getApplicationContext());
+            // if (defaultOption != null) {
+            //     optionsBuilder = new FirebaseOptions.Builder(defaultOption);
+            // }
+            // else {
+            //     optionsBuilder = new FirebaseOptions.Builder();
+            // }
+            Log.d(TAG, "Default Optionの有無に関わらずBuilder()で空のOptionsを初期化");
+            optionsBuilder = new FirebaseOptions.Builder();
         }
         switch (key) {
             case "api_key":
