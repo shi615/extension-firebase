@@ -80,30 +80,46 @@ public class FirebaseJNI {
             }
 
             if (defaultOption != null) {
+                Log.d(TAG, "BuilderをOption付きで初期化")
                 optionsBuilder = new FirebaseOptions.Builder(defaultOption);
             }
             else {
+                Log.d(TAG, "BuilderをOptionなしで初期化")
                 optionsBuilder = new FirebaseOptions.Builder();
             }
+        } else {
+            Log.d(TAG, "optionsBuilder is not nill");
         }
         switch (key) {
             case "api_key":
+                Log.d(TAG, "set api_key前のBuilder.apiKey:" + optionsBuilder.getApiKey());
                 optionsBuilder.setApiKey(value);
+                Log.d(TAG, "set api_key後のBuilder.apiKey:" + optionsBuilder.getApiKey());
                 break;
             case "app_id":
+                Log.d(TAG, "set app_id前のBuilder.app_id:" + optionsBuilder.getApplicationId());
                 optionsBuilder.setApplicationId(value);
+                Log.d(TAG, "set app_id後のBuilder.app_id:" + optionsBuilder.getApplicationId());
                 break;
             case "database_url":
+                Log.d(Tag, "set database_url前のBuilder.database_url:" + optionsBuilder.getDatabaseUrl());
                 optionsBuilder.setDatabaseUrl(value);
+                Log.d(Tag, "set database_url後のBuilder.database_url:" + optionsBuilder.getDatabaseUrl());
                 break;
             case "messaging_sender_id":
+                Log.d(TAG, "set messaging_sender_id前のBuilder.messaging_sender_id:" + optionsBuilder.getGcmSenderId());
                 optionsBuilder.setGcmSenderId(value);
+                Log.d(TAG, "set messaging_sender_id後のBuilder.messaging_sender_id:" + optionsBuilder.getGcmSenderId());
                 break;
             case "project_id":
+                Log.d(TAG, "set project_id前のBuilder.project_id:" + optionsBuilder.getProjectId());
                 optionsBuilder.setProjectId(value);
+                Log.d(TAG, "set project_id後のBuilder.project_id:" + optionsBuilder.getProjectId());
                 break;
             case "storage_bucket":
+                Log.d(TAG, "set storage_bucket前のBuilder.storage_bucket:" + optionsBuilder.storage_bucket());
                 optionsBuilder.setStorageBucket(value);
+                Log.d(TAG, "set storage_bucket後のBuilder.storage_bucket:" + optionsBuilder.storage_bucket());
                 break;
             default:
                 return false;
