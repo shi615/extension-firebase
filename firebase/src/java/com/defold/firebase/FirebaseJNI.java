@@ -39,7 +39,9 @@ public class FirebaseJNI {
         FirebaseApp firebaseApp;
         if (optionsBuilder != null) {
             Log.d(TAG, "Optionsで初期化");
-            firebaseApp = FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
+            FirebaseOptions firebaseOptions = optionsBuilder.build();
+            Log.d(TAG, "firebase project id is:" + firebaseOptions.getProjectId());
+            firebaseApp = FirebaseApp.initializeApp(activity.getApplicationContext(), firebaseOptions);
             optionsBuilder = null;
         }
         else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
@@ -61,6 +63,7 @@ public class FirebaseJNI {
             Log.d(TAG, "Default Optionの有無に関わらずBuilder()で空のOptionsを初期化");
             optionsBuilder = new FirebaseOptions.Builder();
         }
+        Log.d(TAG, key + "オプションを設定する：" + value);
         switch (key) {
             case "api_key":
                 optionsBuilder.setApiKey(value);
