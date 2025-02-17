@@ -80,11 +80,11 @@ public class FirebaseJNI {
             }
 
             if (defaultOption != null) {
-                Log.d(TAG, "BuilderをOption付きで初期化")
+                Log.d(TAG, "BuilderをOption付きで初期化");
                 optionsBuilder = new FirebaseOptions.Builder(defaultOption);
             }
             else {
-                Log.d(TAG, "BuilderをOptionなしで初期化")
+                Log.d(TAG, "BuilderをOptionなしで初期化");
                 optionsBuilder = new FirebaseOptions.Builder();
             }
         } else {
