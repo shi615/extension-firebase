@@ -46,7 +46,6 @@ public class FirebaseJNI {
             Log.d(TAG, "DefaultOptionsで初期化");
             firebaseApp = FirebaseApp.initializeApp(activity.getApplicationContext());
         }
-        Log.d(TAG, "project id is " + firebaseApp.getOptions().getProjectId());
         sendSimpleMessage(MSG_INITIALIZED);
     }
 
