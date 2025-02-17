@@ -37,19 +37,29 @@ public class FirebaseJNI {
 
     public void initialize() {
         Log.d(TAG, "Firebase JNIでのFirebase初期化関数が呼ばれた");
+        FirebaseApp app = null;
         if (optionsBuilder != null) {
-            String appName = FirebaseApp.getName();
-            Log.d(TAG, "AppName is " + appName);
-            FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
+            // optionsBuilderが存在する場合は、カスタムオプションで初期化
+            app = FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
             optionsBuilder = null;
+        } else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
+            // アプリがまだ初期化されていない場合は、デフォルトの初期化を実施
+            app = FirebaseApp.initializeApp(activity.getApplicationContext());
+        } else {
+            // 既に初期化されている場合は、既存のインスタンスを取得
+            app = FirebaseApp.getInstance();
         }
-        else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
-            String appName = FirebaseApp.getName();
+        
+        if (app != null) {
+            String appName = app.getName();
             Log.d(TAG, "AppName is " + appName);
-            FirebaseApp.initializeApp(activity.getApplicationContext());
+        } else {
+            Log.d(TAG, "FirebaseApp is not initialized.");
         }
+        
         sendSimpleMessage(MSG_INITIALIZED);
     }
+
 
     public boolean setOption(String key, String value) {
         Log.d(TAG, "オプション関数が呼ばれた:" + key + ", " + value);
