@@ -40,8 +40,21 @@ public class FirebaseJNI {
         if (optionsBuilder != null) {
             Log.d(TAG, "Optionsで初期化");
             FirebaseOptions firebaseOptions = optionsBuilder.build();
+            Log.d(TAG, "---------firebase 初期化前------------");
             Log.d(TAG, "firebase project id is:" + firebaseOptions.getProjectId());
+            Log.d(TAG, "firebase api key is:" + firebaseOptions.getApiKey());
+            Log.d(TAG, "firebase application id is:" + firebaseOptions.getApplicationId());
+            Log.d(TAG, "firebase database id is:" + firebaseOptions.getDatabaseUrl());
+            Log.d(TAG, "firebase sender id is:" + firebaseOptions.getGcmSenderId());
+            Log.d(TAG, "firebase storage bucket is:" + firebaseOptions.getStorageBucket());
             firebaseApp = FirebaseApp.initializeApp(activity.getApplicationContext(), firebaseOptions);
+            Log.d(TAG, "---------firebase 初期化後------------");
+            Log.d(TAG, "firebase project id is:" + firebaseApp.getOptions().getProjectId());
+            Log.d(TAG, "firebase api key is:" + firebaseApp.getOptions().getApiKey());
+            Log.d(TAG, "firebase application id is:" + firebaseApp.getOptions().getApplicationId());
+            Log.d(TAG, "firebase database id is:" + firebaseApp.getOptions().getDatabaseUrl());
+            Log.d(TAG, "firebase sender id is:" + firebaseApp.getOptions().getGcmSenderId());
+            Log.d(TAG, "firebase storage bucket is:" + firebaseApp.getOptions().getStorageBucket());
             optionsBuilder = null;
         }
         else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
