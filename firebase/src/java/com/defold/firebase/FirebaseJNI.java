@@ -14,7 +14,6 @@ import com.google.firebase.FirebaseApp;
 import org.json.JSONObject;
 import org.json.JSONException;
 
-
 public class FirebaseJNI {
     private static final String TAG = "FirebaseJNI";
 
@@ -22,13 +21,13 @@ public class FirebaseJNI {
 
     // duplicate of enums from firebase_callback.h:
     // CONSTANTS:
-    private static final int MSG_ERROR =                   0;
-    private static final int MSG_INITIALIZED =             1;
+    private static final int MSG_ERROR = 0;
+    private static final int MSG_INITIALIZED = 1;
     private static final int MSG_INSTALLATION_AUTH_TOKEN = 2;
-    private static final int MSG_INSTALLATION_ID =         3;
+    private static final int MSG_INSTALLATION_ID = 3;
 
     private Activity activity;
-    
+
     private FirebaseOptions.Builder optionsBuilder;
 
     public FirebaseJNI(Activity activity) {
@@ -49,17 +48,16 @@ public class FirebaseJNI {
             // 既に初期化されている場合は、既存のインスタンスを取得
             app = FirebaseApp.getInstance();
         }
-        
+
         if (app != null) {
             String appName = app.getName();
             Log.d(TAG, "AppName is " + appName);
         } else {
             Log.d(TAG, "FirebaseApp is not initialized.");
         }
-        
+
         sendSimpleMessage(MSG_INITIALIZED);
     }
-
 
     public boolean setOption(String key, String value) {
         Log.d(TAG, "オプション関数が呼ばれた:" + key + ", " + value);
@@ -82,8 +80,7 @@ public class FirebaseJNI {
             if (defaultOption != null) {
                 Log.d(TAG, "BuilderをOption付きで初期化");
                 optionsBuilder = new FirebaseOptions.Builder(defaultOption);
-            }
-            else {
+            } else {
                 Log.d(TAG, "BuilderをOptionなしで初期化");
                 optionsBuilder = new FirebaseOptions.Builder();
             }
@@ -117,9 +114,9 @@ public class FirebaseJNI {
                 Log.d(TAG, "set project_id後のBuilder.project_id:" + optionsBuilder.getProjectId());
                 break;
             case "storage_bucket":
-                Log.d(TAG, "set storage_bucket前のBuilder.storage_bucket:" + optionsBuilder.storage_bucket());
+                Log.d(TAG, "set storage_bucket前のBuilder.storage_bucket:" + optionsBuilder.getStorageBucket());
                 optionsBuilder.setStorageBucket(value);
-                Log.d(TAG, "set storage_bucket後のBuilder.storage_bucket:" + optionsBuilder.storage_bucket());
+                Log.d(TAG, "set storage_bucket後のBuilder.storage_bucket:" + optionsBuilder.getStorageBucket());
                 break;
             default:
                 return false;
@@ -128,16 +125,17 @@ public class FirebaseJNI {
     }
 
     public void getInstallationAuthToken() {
-        FirebaseInstallations.getInstance().getToken(false).addOnCompleteListener(new OnCompleteListener<InstallationTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstallationTokenResult> task) {
-                if (task.isSuccessful() && task.getResult() != null) {
-                    sendSimpleMessage(MSG_INSTALLATION_AUTH_TOKEN, "token", task.getResult().getToken());
-                } else {
-                    sendErrorMessage("Unable to get Installation auth token");
-                }
-            }
-        });
+        FirebaseInstallations.getInstance().getToken(false)
+                .addOnCompleteListener(new OnCompleteListener<InstallationTokenResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstallationTokenResult> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            sendSimpleMessage(MSG_INSTALLATION_AUTH_TOKEN, "token", task.getResult().getToken());
+                        } else {
+                            sendErrorMessage("Unable to get Installation auth token");
+                        }
+                    }
+                });
     }
 
     public void getInstallationId() {
@@ -156,7 +154,7 @@ public class FirebaseJNI {
     // https://www.baeldung.com/java-json-escaping
     private String getJsonConversionErrorMessage(String errorText) {
         String message = null;
-        
+
         try {
             JSONObject obj = new JSONObject();
             obj.put("error", errorText);
@@ -191,5 +189,5 @@ public class FirebaseJNI {
             message = getJsonConversionErrorMessage(e.getLocalizedMessage());
             firebaseAddToQueue(MSG_ERROR, message);
         }
-    }    
+    }
 }
