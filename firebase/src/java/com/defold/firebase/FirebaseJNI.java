@@ -35,7 +35,33 @@ public class FirebaseJNI {
         this.activity = activity;
     }
 
+    public static void logActivityContents(Activity activity) {
+        if (activity == null) {
+            Log.d(TAG, "Firebase: Activity is null");
+            return;
+        }
+
+        // Activityのインスタンス自体（toString()の内容）をログに出力
+        Log.d(TAG, "Firebase: Activity instance: " + activity.toString());
+
+        // Activityのクラス名をログに出力
+        Log.d(TAG, "Firebase: Activity class: " + activity.getClass().getName());
+
+        // Activityのタイトル（setTitleで設定したもの）をログに出力
+        CharSequence title = activity.getTitle();
+        Log.d(TAG, "Firebase: Activity title: " + (title != null ? title.toString() : "null"));
+
+        // Activityのインテント情報をログに出力
+        Log.d(TAG, "Firebase: Activity intent: " + activity.getIntent());
+
+        // その他、必要な情報があればここでログに出力する
+        // 例: Activityのハッシュコードや、独自に管理しているフィールドなど
+        Log.d(TAG, "Firebase: Activity hashCode: " + activity.hashCode());
+    }
+
     public void initialize() {
+        Log.d(TAG, "Firebase初期化関数が呼び出された");
+        logActivityContents(activity);
         FirebaseApp firebaseApp;
         if (optionsBuilder != null) {
             Log.d(TAG, "Optionsで初期化");
@@ -116,6 +142,7 @@ public class FirebaseJNI {
     }
 
     public void getInstallationId() {
+        Log.d(TAG, "getInstallationId関数が呼び出された");
         FirebaseInstallations.getInstance().getId().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
