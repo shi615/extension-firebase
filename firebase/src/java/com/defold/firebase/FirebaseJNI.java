@@ -36,11 +36,14 @@ public class FirebaseJNI {
     }
 
     public void initialize() {
+        Log.d(TAG, "Firebase初期化関数が呼び出された");
         if (optionsBuilder != null) {
+            Log.d(TAG, "オプションありで初期化");
             FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
             optionsBuilder = null;
         }
         else if (FirebaseApp.getApps(activity.getApplicationContext()).size() == 0) {
+            Log.d(TAG, "オプションなしで初期化");
             FirebaseApp.initializeApp(activity.getApplicationContext());
         }
         sendSimpleMessage(MSG_INITIALIZED);
@@ -50,12 +53,15 @@ public class FirebaseJNI {
         if (optionsBuilder == null) {
             FirebaseOptions defaultOption = FirebaseOptions.fromResource(activity.getApplicationContext());
             if (defaultOption != null) {
+                Log.d(TAG, "defaultOptionありでBuilder初期化");
                 optionsBuilder = new FirebaseOptions.Builder(defaultOption);
             }
             else {
+                Log.d(TAG, "defaultOptionなしでBuilder初期化");
                 optionsBuilder = new FirebaseOptions.Builder();
             }
         }
+        Log.d(TAG, "オプション値" + key + "を設定する：" + value);
         switch (key) {
             case "api_key":
                 optionsBuilder.setApiKey(value);
@@ -82,6 +88,7 @@ public class FirebaseJNI {
     }
 
     public void getInstallationAuthToken() {
+        Log.d(TAG, "Firebaseトークン取得関数が呼び出された");
         FirebaseInstallations.getInstance().getToken(false).addOnCompleteListener(new OnCompleteListener<InstallationTokenResult>() {
             @Override
             public void onComplete(@NonNull Task<InstallationTokenResult> task) {
@@ -95,6 +102,7 @@ public class FirebaseJNI {
     }
 
     public void getInstallationId() {
+        Log.d(TAG, "FirebaseID取得関数が呼び出された");
         FirebaseInstallations.getInstance().getId().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
