@@ -8,8 +8,7 @@
 		<provider
 			android:name="com.google.firebase.provider.FirebaseInitProvider"
 			android:authorities="{{android.package}}.firebaseinitprovider"
-			android:exported="false"
-    		android:enabled="false"
+			tools:node="remove"
 		/>
 {{/firebase.no_auto_init}}
 	</application>
