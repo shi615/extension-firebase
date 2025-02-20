@@ -37,6 +37,7 @@ public class FirebaseJNI {
 
     public void initialize() {
         Log.d(TAG, "Firebase初期化関数が呼び出された");
+        Log.d(TAG, "FirebaseAppの数（初期化前）は" + FirebaseApp.getApps(activity.getApplicationContext()).size());
         if (optionsBuilder != null) {
             Log.d(TAG, "オプションありで初期化");
             FirebaseApp.initializeApp(activity.getApplicationContext(), optionsBuilder.build());
@@ -46,6 +47,7 @@ public class FirebaseJNI {
             Log.d(TAG, "オプションなしで初期化");
             FirebaseApp.initializeApp(activity.getApplicationContext());
         }
+        Log.d(TAG, "FirebaseAppの数（初期化後）は" + FirebaseApp.getApps(activity.getApplicationContext()).size());
         sendSimpleMessage(MSG_INITIALIZED);
     }
 
