@@ -48,6 +48,18 @@ public class FirebaseJNI {
             FirebaseApp.initializeApp(activity.getApplicationContext());
         }
         Log.d(TAG, "FirebaseAppの数（初期化後）は" + FirebaseApp.getApps(activity.getApplicationContext()).size());
+        Log.d(TAG, "ActivityのContext: " + activity.getApplicationContext().toString());
+        Log.d(TAG, "Package Name: " + activity.getApplicationContext().getPackageName());
+        Log.d(TAG, "Application Info: " + activity.getApplicationContext().getApplicationInfo().toString());
+        Log.d(TAG, "Class Loader: " + activity.getApplicationContext().getClassLoader().toString());
+        Log.d(TAG, "Resources: " + activity.getApplicationContext().getResources().toString());
+        Log.d(TAG, "Files Dir: " + activity.getApplicationContext().getFilesDir().toString());
+        Log.d(TAG, "Cache Dir: " + activity.getApplicationContext().getCacheDir().toString());
+        Log.d(TAG, "Resource path: " + activity.getApplicationContext().getPackageResourcePath());
+        Log.d(TAG, "External Cache Dir: " + activity.getApplicationContext().getExternalCacheDir().toString());
+        Log.d(TAG, "Obb Dir: " + activity.getApplicationContext().getObbDir().toString());
+        Log.d(TAG, "Code Cache Dir: " + activity.getApplicationContext().getCodeCacheDir().toString());
+        Log.d(TAG, "No Backup Files Dir: " + activity.getApplicationContext().getNoBackupFilesDir().toString());
         sendSimpleMessage(MSG_INITIALIZED);
     }
 
