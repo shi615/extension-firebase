@@ -93,6 +93,13 @@ public class FirebaseJNI {
             default:
                 return false;
         }
+        Log.d(TAG, "オプション値" + key + "を"  + value + "に設定した後のbuilderOptions: " +
+                "API Key: " + optionsBuilder.build().getApiKey() + ", " +
+                "Application ID: " + optionsBuilder.build().getApplicationId() + ", " +
+                "Database URL: " + optionsBuilder.build().getDatabaseUrl() + ", " +
+                "GCM Sender ID: " + optionsBuilder.build().getGcmSenderId() + ", " +
+                "Project ID: " + optionsBuilder.build().getProjectId() + ", " +
+                "Storage Bucket: " + optionsBuilder.build().getStorageBucket());
         return true;
     }
 
