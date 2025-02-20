@@ -56,6 +56,13 @@ public class FirebaseJNI {
             FirebaseOptions defaultOption = FirebaseOptions.fromResource(activity.getApplicationContext());
             if (defaultOption != null) {
                 Log.d(TAG, "defaultOptionありでBuilder初期化");
+                Log.d(TAG, "Default Option: " +
+                        "API Key: " + defaultOption.getApiKey() + ", " +
+                        "Application ID: " + defaultOption.getApplicationId() + ", " +
+                        "Database URL: " + defaultOption.getDatabaseUrl() + ", " +
+                        "GCM Sender ID: " + defaultOption.getGcmSenderId() + ", " +
+                        "Project ID: " + defaultOption.getProjectId() + ", " +
+                        "Storage Bucket: " + defaultOption.getStorageBucket());
                 optionsBuilder = new FirebaseOptions.Builder(defaultOption);
             }
             else {
